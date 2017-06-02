@@ -1,4 +1,4 @@
-Zabbix Client
+Zabbix Agent
 =============
 
 This play will install the zabbix Agent on your clients
@@ -7,11 +7,11 @@ The Client will also be added into the Zabbix server with the correct template a
 Requirements
 ------------
 
-Centos-RHEL 6.5/7
+Centos-RHEL 6/7
 
 Version
 -------
-31/08/2015
+02/06/2017
 
 Role Variables
 --------------
@@ -98,6 +98,7 @@ GPLv2
 
 Author Information
 ------------------
+base on 
 * Patrik Uytterhoeven
 * patrik( at )open-future.be
 * [www.open-future.be](http://www.open-future.be)

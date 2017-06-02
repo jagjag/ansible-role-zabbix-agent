@@ -1,8 +1,37 @@
 ---
-- name: Unexpected OS
-  debug: msg="OS Family {{ ansible_os_family }} is not supported" fail=yes
-  when: not ansible_os_family == 'RedHat'
 
-- name: Install with Yum
-  include: RedHat.yml
-  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7" or ansible_distribution_major_version == "6"
+
+- name: Set OS dependent variables
+  include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
+   - "{{ ansible_os_family }}.yml"
+   - default.yml
+  tags:
+    - base
+
+- name: OS is supported
+  assert:
+    that: base_os_supported == True
+  tags:
+    - base
+
+- include: yumrepos.yml
+  when: zbx_install_repos == True   ## TODO:  var  zbx_install_repos
+
+- include: packages.yml
+
+- include: config.yml
+
+
+
+
+#- name: Unexpected OS
+#  debug: msg="OS Family {{ ansible_os_family }} is not supported" fail=yes
+#  when: not ansible_os_family == 'RedHat'
+
+#- name: Install with Yum
+#  include: RedHat.yml
+#  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7" or ansible_distribution_major_version == "6"
