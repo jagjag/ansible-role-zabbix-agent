@@ -58,3 +58,4 @@ zbx_agent_UserParameter: []                             # Add one or more lines 
 zbx_agent_LoadModulePath:                               # Add path of the loadable modules
 zbx_agent_Modules: []                                   # Add one or more lines with modules module.so
 
+zbx_disablerepo: zabbix-rhel7-3.0-x64
